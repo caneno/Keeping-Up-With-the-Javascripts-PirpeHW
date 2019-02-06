@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title></title>
+  </head>
+  <body>
+    <script>
+        //Varriables used through out the page
+      let wrapperID = document.createElement("DIV");
+      let rectHex = document.getElementsByClassName("rectBox");
+      let rectClass = document.getElementsByClassName("rect");
+      let randomColor = "#" + ((Math.random() * 0xffffff) << 0).toString(16);
+      const numRect = 10;
+      let header = document.createElement('div');
+      let h1 = document.createElement('h1');
+      let h2 = document.createElement('h2');
+
+// Creation of H1 and H2 tags appended to HTML
+      document.body.appendChild(header);
+      header.append(h1, h2);
+      h1.innerHTML = "<h1>Homework Assignment #7 THE DOM</h1>";
+      h2.innerHTML = "<h2>Below you will see ten different rectangles. Each rectangle has a unique background color, which is also represente as a HEX code just below each of them. This project is done with only using Vanilla JS.</h2>";
+       
+        
+        //Loop that creates the Div elements with their proper IDs and Classes With styles
+      for (let i = 1; i <= numRect; i++) {
+        let div = document.createElement("DIV");
+        let div2 = document.createElement("DIV");
+        let para = document.createElement("P");
+        div.appendChild(div2);
+        div.appendChild(para);
+        div.className = "rectBox";
+        div2.className = "rect";
+        para.style.textAlign = "center";    
+
+        div2.id = "rect" + i.toString();
+
+        wrapperID.appendChild(div);
+
+
+
+      }
+      
+      wrapperID.setAttribute("id", "rectangleWrapper");
+      document.body.append(wrapperID);
+
+
+      console.log("Here are the rectangle IDs");
+
+      //Loop that will give a random color to each rectangle
+      for (let j = 1; j <= numRect; j++) {
+        document.getElementById("rect" + j.toString()).style.backgroundColor = randomColor;
+        document.getElementById("rect" + j.toString()).style = "height:200px;width: 300px;";
+       //Boolean to make sure each rectangle has a different color
+        if (
+          document.getElementById("rect" + j.toString()).style.background ===
+          document.getElementById("rect" + j.toString()).style.background
+        ) {
+          document.getElementById("rect" + j.toString()).style.background =
+            "#" + Math.floor(Math.random() * 16777218).toString(16);
+        }
+        
+        console.log("rect" + j.toString());
+        
+      }
+      //Loop that will convert RGB to HEX color code
+      for (let i = 0; i < rectHex.length; i++) {
+        rectHex[i].lastChild.innerText = rgb2hex(
+          rectClass[i].style.backgroundColor
+        );
+      }
+
+    
+      
+     
+
+      //Function to convert hex format to a rgb color
+      function rgb2hex(rgb) {
+        var hexDigits = [
+          "0",
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7",
+          "8",
+          "9",
+          "a",
+          "b",
+          "c",
+          "d",
+          "e",
+          "f"
+        ];
+        rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+        function hex(x) {
+          return isNaN(x)
+            ? "00"
+            : hexDigits[(x - (x % 16)) / 16] + hexDigits[x % 16];
+        }
+        return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
+      }
+
+    //   document.querySelectorAll('.rect').forEach(el => {
+    //       el.style = "height: 200px;width: 300px;";
+    //   });
+      document.getElementsByTagName("TITLE")[0].text = h1.textContent;
+      document.getElementById("rectangleWrapper").style =
+      "padding: 50px 50px 0px 50px;display: grid;grid-template-columns: repeat(3, 1fr);justify-items: center;";
+        
+    </script>
+  </body>
+</html>
